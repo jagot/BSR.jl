@@ -5,9 +5,10 @@ function build_args(kwargs)
 end
 
 macro bsr_exe(exe)
+    exe_str = string(exe)
     @eval begin
         function ($exe)(args...; kwargs...)
-            cmd = string(BSR.bsr, "/", $exe)
+            cmd = string(bsr, "/", $exe_str)
             run(`$cmd $args $(build_args(kwargs))`)
         end
         export $exe

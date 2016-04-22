@@ -12,3 +12,5 @@ function bsr_prep_state(state, filename, directory)
         mv("$(state_name).bsw", "$(filename).bsw", remove_destination = true)
     end
 end
+
+export bsr_prep_state
