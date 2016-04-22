@@ -1,3 +1,7 @@
 *.jl.cov
 *.jl.*.cov
 *.jl.mem
+*~
+src/paths.jl
+ltxpng/
+.juliahistory
