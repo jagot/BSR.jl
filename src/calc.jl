@@ -23,6 +23,14 @@ end
 @bsr_exe bsr_dmat
 @bsr_exe bsr_phot
 
+function gen_expansion(klsp, itype)
+    !isfile(@sprintf("int_bnk.%03d",klsp)) && bsr_breit(klsp=klsp)
+    !isfile(@sprintf("bsr_mat.%03d",klsp)) && bsr_mat(klsp=klsp)
+    for i in itype
+        bsr_hd(klsp=klsp, itype=i)
+    end
+end
+
 function photo(photo_inp::Matrix)
     open("bsr_phot.inp", "w") do file
         write(file, "-------\n")
@@ -39,4 +47,4 @@ function photo(photo_inp::Matrix)
     bsr_phot()
 end
 
-export photo
+export gen_expansion, photo
