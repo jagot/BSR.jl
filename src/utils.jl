@@ -9,6 +9,25 @@ function knot_set(directory::AbstractString,
     end
 end
 
+function knot_set(directory::AbstractString,
+                  order::Integer,
+                  num_splines::Integer,
+                  Z::Real,
+                  E_max::Real,
+                  r_max::Real)
+    h_max = sqrt(1/E_max) # Only valid for order == 8 ?
+    n = floor(log(8Z)/log(2))
+    h_int = 1/2.0^n
+    knots = ["order of splines (ks)" order
+             "number of splines (ns)" num_splines
+             "nuclear charge (z)" Z
+             "step size from 0 to 1 (h for z*r, = (1/2)^n)" h_int
+             "maximum step size (hmax for r)" h_max
+             "maximum r (rmax)" r_max]
+    knot_set(directory, knots)
+    knots
+end
+
 function target(directory::AbstractString,
                 target_descr::Matrix)
     open("$directory/target", "w") do file
