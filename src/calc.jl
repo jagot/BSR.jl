@@ -23,6 +23,11 @@ end
 @bsr_exe bsr_dmat
 @bsr_exe bsr_phot
 
+function dipole(cfg1, cfg2, t1, t2, trans="E1")
+    mult(cfg1, cfg2, trans)
+    bsr_dmat(cfg1, cfg2, t1, t2)
+end
+
 function photo(photo_inp::Matrix)
     open("bsr_phot.inp", "w") do file
         write(file, "-------\n")
@@ -39,4 +44,4 @@ function photo(photo_inp::Matrix)
     bsr_phot()
 end
 
-export photo
+export dipole, photo
