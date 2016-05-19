@@ -10,5 +10,6 @@ include("utils.jl")
 include("prep_state.jl")
 include("calc.jl")
 include("load_matrices.jl")
+include("load_states.jl")
 
 end # module
