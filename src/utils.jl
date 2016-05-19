@@ -73,7 +73,46 @@ function target(directory::AbstractString,
     end
 end
 
+function load_target(directory::AbstractString)
+    open(joinpath(directory, "target")) do file
+        target = Dict()
+        read_parm = T -> begin
+            line = split(readline(file), "=")
+            val = strip(split(line[2], "!")[1])
+            target[symbol(strip(line[1]))] = T<:AbstractString ? val : parse(T, val)
+        end
+        expect_line = () -> begin
+            line = readline(file)
+            line[1]==line[2]=='-' || error("Expected divider")
+        end
+        readline(file)
+        expect_line()
+        read_parm(ASCIIString)
+        read_parm(Int)
+        read_parm(Int)
+        expect_line()
+        ntarg = read_parm(Int)
+        expect_line()
+        for i = 1:ntarg
+            readline(file)
+        end
+        expect_line()
+        read_parm(Int)
+        read_parm(Int)
+        read_parm(Int)
+        expect_line()
+        nlsp = read_parm(Int)
+        expect_line()
+        for i = 1:nlsp
+            readline(file)
+        end
+        expect_line()
+        read_parm(Int)
+        target
+    end
+end
+
 bsr_prep() = run(`$(bsr)/bsr_prep`)
 bsr_conf() = run(`$(bsr)/bsr_conf`)
 
-export knot_set, load_knot_set, target, bsr_prep, bsr_conf
+export knot_set, load_knot_set, target, load_target, bsr_prep, bsr_conf
