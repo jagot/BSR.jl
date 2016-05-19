@@ -28,6 +28,31 @@ function knot_set(directory::AbstractString,
     knots
 end
 
+function load_knot_set(directory::AbstractString)
+    open(joinpath(directory, "knot.dat")) do file
+        read_parm = T -> parse(T, split(readline(file), "==>")[1])
+        knot_set = Dict()
+        knot_set[:ks] = read_parm(Int)
+        knot_set[:ns] = read_parm(Int)
+        knot_set[:Z] = read_parm(Float64)
+        knot_set[:h] = read_parm(Float64)
+        knot_set[:hmax] = read_parm(Float64)
+        knot_set[:rmax] = read_parm(Float64)
+        readline(file)
+        knot_set[:t] = Vector{Float64}()
+        while length(knot_set[:t]) < knot_set[:ns] + knot_set[:ks]
+            tt = map(s -> parse(Float64, s), split(readline(file)))
+            append!(knot_set[:t], tt)
+        end
+        readline(file)
+        knot_set[:n_inner_knots] = read_parm(Int)
+        knot_set[:n_exp_knots] = read_parm(Int)
+        knot_set[:n_intervals] = read_parm(Int)
+        knot_set[:max_k2_Ry] = read_parm(Float64)
+        knot_set
+    end
+end
+
 function target(directory::AbstractString,
                 target_descr::Matrix)
     open("$directory/target", "w") do file
@@ -51,4 +76,4 @@ end
 bsr_prep() = run(`$(bsr)/bsr_prep`)
 bsr_conf() = run(`$(bsr)/bsr_conf`)
 
-export knot_set, target, bsr_prep, bsr_conf
+export knot_set, load_knot_set, target, bsr_prep, bsr_conf
