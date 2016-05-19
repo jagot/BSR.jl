@@ -47,4 +47,30 @@ function load_hamiltonian_overlap_matrices(directory::AbstractString, n::Integer
     end
 end
 
-export load_hamiltonian_overlap_matrices
+function load_dipole(directory::AbstractString, k1::Integer, k2::Integer)
+    fort_open(joinpath(directory, "d.00$(k1)_00$(k2)")) do file
+        m,n = read(file, Int32, Int32)
+        L = Array(Float64, m, n)
+        for j = 1:n
+            read!(file, sub(L, :, j))
+        end
+        V = Array(Float64, m, n)
+        for j = 1:n
+            read!(file, sub(V, :, j))
+        end
+        L,V
+    end
+end
+
+function load_dipole_vec(directory::AbstractString, k::Integer)
+    fort_open(joinpath(directory, "d.00$(k)")) do file
+        il, is, ip, E, ndm = read(file, Int32, Int32, Int32, Float64, Int32)
+        ili, isi, ipi, Ei = read(file, Int32, Int32, Int32, Float64)
+        println((il,is,ip,E,ndm))
+        println((ili,isi,ipi,Ei))
+        dip = Array(Float64, 2, ndm)
+        read!(file, dip)'
+    end
+end
+
+export load_hamiltonian_overlap_matrices, load_dipole, load_dipole_vec
