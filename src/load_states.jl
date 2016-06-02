@@ -24,4 +24,27 @@ function load_bound_states(directory::AbstractString, k::Integer)
     end
 end
 
-export load_bound_states
+function asmatrix(v)
+    V = Matrix{Float64}(length(v[1][:c]), length(v))
+    for j = 1:length(v)
+        V[:,j] = v[j][:c]
+    end
+    V
+end
+
+function eigenbasis(directory::AbstractString, k::Integer, Ip::Real)
+    v = load_bound_states(directory, k)
+    V = asmatrix(v)
+    E = Float64[v[j][:E_bind]/27.211-Ip for j = eachindex(v)]
+    E,V
+end
+
+function eigenbasis(directory::AbstractString,
+                    krange::UnitRange{Int}, Ip::Real)
+    @time E,V = zip(map(k -> eigenbasis(directory, k, Ip), krange)...)
+    E = Vector{Float64}[EE for EE in E]
+    V = Matrix{Float64}[V[k] for k=1:length(V)]
+    E,V
+end
+
+export load_bound_states, eigenbasis
