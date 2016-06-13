@@ -23,9 +23,9 @@ end
 @bsr_exe bsr_dmat
 @bsr_exe bsr_phot
 
-function dipole(cfg1, cfg2, t1, t2, trans="E1")
+function dipole(cfg1, cfg2, t1, t2, trans="E1", args...; kwargs...)
     mult(cfg1, cfg2, trans)
-    bsr_dmat(cfg1, cfg2, t1, t2)
+    bsr_dmat(cfg1, cfg2, t1, t2, args...; kwargs...)
 end
 
 function photo(photo_inp::Matrix)
