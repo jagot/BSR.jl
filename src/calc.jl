@@ -13,7 +13,7 @@ function dipole(cfg1, cfg2, t1, t2, trans="E1", args...; kwargs...)
     bsr_dmat(cfg1, cfg2, t1, t2, args...; kwargs...)
 end
 
-function photo(photo_inp::Matrix)
+function photo(photo_inp::Matrix, klsp::Integer)
     open("bsr_phot.inp", "w") do file
         write(file, "-------\n")
         for i = 1:size(photo_inp,1)
@@ -25,8 +25,9 @@ function photo(photo_inp::Matrix)
         end
         write(file, "-------\n")
     end
+    debug("bsr_phot.inp:\n$(photo_inp)")
     
-    bsr_phot()
+    bsr_phot(klsp = klsp)
 end
 
 export dipole, photo
