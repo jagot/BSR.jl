@@ -112,7 +112,7 @@ function load_target(directory::AbstractString)
     end
 end
 
-bsr_prep() = run(`$(bsr)/bsr_prep`)
-bsr_conf() = run(`$(bsr)/bsr_conf`)
+@bsr_exe bsr_prep
+@bsr_exe bsr_conf
 
 export knot_set, load_knot_set, target, load_target, bsr_prep, bsr_conf

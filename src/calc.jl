@@ -1,19 +1,4 @@
-function build_args(kwargs)
-    map(kwargs) do kv
-        "$(kv[1])=$(kv[2])"
-    end
-end
-
-macro bsr_exe(exe)
-    exe_str = string(exe)
-    @eval begin
-        function ($exe)(args...; kwargs...)
-            cmd = string(bsr, "/", $exe_str)
-            run(`$cmd $args $(build_args(kwargs))`)
-        end
-        export $exe
-    end
-end
+using Lumberjack
 
 @bsr_exe bsr_breit
 @bsr_exe bsr_mat

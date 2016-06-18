@@ -6,6 +6,7 @@ catch
     error("Run Pkg.build(\"BSR\") first")
 end
 
+include("common.jl")
 include("utils.jl")
 include("prep_state.jl")
 include("calc.jl")
