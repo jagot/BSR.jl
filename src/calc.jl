@@ -1,7 +1,9 @@
 using Lumberjack
 
 @bsr_exe bsr_breit
+@bsr_mpi_exe bsr_breit_mpi
 @bsr_exe bsr_mat
+@bsr_mpi_exe bsr_mat_mpi
 @bsr_exe bsr_hd
 
 @bsr_exe mult
