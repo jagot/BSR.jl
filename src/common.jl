@@ -1,3 +1,4 @@
+using AtomicLevels
 using Lumberjack
 
 function build_args(kwargs)
@@ -19,3 +20,6 @@ macro bsr_exe(exe)
         export $exe
     end
 end
+
+typealias StateDict Dict{Term,Vector{AbstractString}}
+state_dict() = StateDict()
