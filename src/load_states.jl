@@ -1,5 +1,6 @@
 function load_bound_states(directory::AbstractString, k::Integer)
-    dbl_pat = r"([ -])([0-9]).([0-9]+)D([+-])([0-9]+)" # Double-precision in Fortran: 0.0000D+00
+    dbl_pat = r"([ -])([0-9]).([0-9]+)D([+-])([0-9]{2})" # Double-precision in Fortran: 0.0000D+00
+    flt_pat = r"([ -])([0-9]).([0-9]+)E([+-])([0-9]{2})"
     open(joinpath(directory, @sprintf("bound.%03d", k))) do file
         ns,kch,kcp,nhm,nbound,lpar,ispar,ipar =
             map(s -> parse(Float64, s),
