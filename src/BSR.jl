@@ -7,7 +7,8 @@ catch
 end
 
 include("common.jl")
-include("utils.jl")
+include("knot_set.jl")
+include("target.jl")
 include("prep_state.jl")
 include("calc.jl")
 include("load_matrices.jl")
