@@ -1,7 +1,10 @@
 using Lumberjack
+@bsr_exe zgenconf
+@bsr_exe zgenterm
 
 @bsr_exe bsr_breit
 @bsr_mpi_exe bsr_breit_mpi
+@bsr_exe ci_bnk
 @bsr_exe bsr_mat
 @bsr_mpi_exe bsr_mat_mpi
 @bsr_exe bsr_hd
@@ -9,6 +12,7 @@ using Lumberjack
 @bsr_exe mult
 @bsr_exe bsr_dmat
 @bsr_exe bsr_phot
+@bsr_mpi_exe bsr_phot_mpi
 
 function dipole(cfg1, cfg2, t1, t2, trans="E1", args...; kwargs...)
     mult(cfg1, cfg2, trans)
