@@ -1,5 +1,4 @@
 using AtomicLevels
-using Lumberjack
 
 function build_args(kwargs)
     map(kwargs) do kv
