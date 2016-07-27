@@ -14,10 +14,12 @@ function knot_set(directory::AbstractString,
                   num_splines::Integer,
                   Z::Real,
                   E_max::Real,
-                  r_max::Real)
-    h_max = min(sqrt(1/E_max), r_max) # Only valid for order == 8 ?
+                  r_max::Real,
+                  h_max::Real = 0,
+                  h_int::Real = 0)
+    h_max == 0 && (h_max = min(sqrt(1/E_max), r_max)) # Only valid for order == 8 ?
     n = floor(log(8Z)/log(2))
-    h_int = 1/2.0^n
+    h_int == 0 && (h_int = 1/2.0^n)
     knots = ["order of splines (ks)" order
              "number of splines (ns)" num_splines
              "nuclear charge (z)" Z
