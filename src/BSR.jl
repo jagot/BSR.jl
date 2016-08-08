@@ -13,5 +13,6 @@ include("prep_state.jl")
 include("calc.jl")
 include("load_matrices.jl")
 include("load_states.jl")
+include("load_transitions.jl")
 
 end # module
