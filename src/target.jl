@@ -139,7 +139,7 @@ function load_target(directory::AbstractString)
                      :l => parse(Int, line[2]),
                      :target => parse(Int, line[3]),
                      :last_cfg => parse(Int, line[5]),
-                     :K => parse(Int, line[6]))
+                     :K => (parse(Int, line[6])-1)//2)
             end
             expect_line()
         end
